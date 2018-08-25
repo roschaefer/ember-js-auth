@@ -1,9 +1,11 @@
 import Service from '@ember/service';
 import { computed } from '@ember/object';
 import config from 'ember-js-auth/config/environment';
+import { inject as service } from '@ember/service';
 
 export default Service.extend({
-  
+  session: service(),
+
   /**
    * Configure our auth0 instance
    */
@@ -23,7 +25,7 @@ export default Service.extend({
    * Send a user over to the hosted auth0 login page
    */
   login() {
-    this.get('auth0').authorize();
+    return this.get('auth0').authorize();
   },
 
   /**
@@ -34,9 +36,10 @@ export default Service.extend({
     return new Promise((resolve) => {
       this.get('auth0').parseHash((err, authResult) => {
         if (err) return false;
-        
+
         if (authResult && authResult.accessToken) {
           this.setUser(authResult.accessToken);
+          this.get('session').authenticate('authenticator:auth0-url-hash', authResult.accessToken);
         }
 
         return resolve();
@@ -48,9 +51,9 @@ export default Service.extend({
    * Computed to tell if a user is logged in or not
    * @return boolean
    */
-  isAuthenticated: computed(function() {    
+  isAuthenticated: computed(function() {
     return this.get('checkLogin');
-  }), 
+  }),
 
   /**
    * Use the token to set our user
@@ -59,7 +62,10 @@ export default Service.extend({
     // once we have a token, we are able to go get the users information
     this.get('auth0')
       .client
-      .userInfo(token, (err, profile) => this.set('user', profile))
+      .userInfo(token, (err, profile) => {
+        this.get('session').set('data.profile', profile);
+        return this.set('user', profile)
+      })
   },
 
   /**
@@ -73,7 +79,7 @@ export default Service.extend({
         if (err) return err;
         this.setUser(authResult.accessToken);
       });
-  }, 
+  },
 
   /**
    * Get rid of everything in sessionStorage that identifies this user

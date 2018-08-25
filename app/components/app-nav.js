@@ -3,14 +3,14 @@ import { inject as service } from '@ember/service';
 
 export default Component.extend({
   router: service(),
-  auth: service('auth'),
+  session: service(),
   actions: {
-  
+
     /**
    * From service/auth, starting the login process
    */
     login() {
-      this.get('auth').login();
+      this.get('session').authenticate('authenticator:auth0');
     },
 
     goHome() {
@@ -20,14 +20,12 @@ export default Component.extend({
     goDashboard() {
       this.get('router').transitionTo('dashboard');
     },
-    
+
     /**
    * From service/auth, removing the saved token from the session.
    */
     logout() {
-      this
-        .get('auth')
-        .logout()  
+      this.get('session').invalidate()
     }
   }
 });
