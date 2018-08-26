@@ -7,7 +7,11 @@ module.exports = function(defaults) {
     // Add options here
   });
 
-  app.import('node_modules/auth0-js/build/auth0.js');
+  app.import('node_modules/auth0-js/build/auth0.js', {
+    using: [
+      { transformation: 'amd', as: 'auth0' }
+    ]
+  });
 
   return app.toTree();
 };
