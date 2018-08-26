@@ -43,10 +43,6 @@ module.exports = function (environment) {
     ENV.APP.rootElement = '#ember-testing';
   }
 
-  if (environment === 'production') {
-
-  }
-
   ENV.auth0 = {
     clientId: AUTH_CONFIG.clientId,
     domain: AUTH_CONFIG.domain,

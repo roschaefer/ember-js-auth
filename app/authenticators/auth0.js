@@ -7,7 +7,7 @@ export default Base.extend({
   restore(data) {
     return RSVP.resolve(data);
   },
-  authenticate(options) {
+  authenticate() {
     return this.get('auth').login();
   }
 });
