@@ -17,6 +17,7 @@
     "test": "ember test"
   },
   "devDependencies": {
+    "auth0-js": "^9.7.3",
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^3.0.0",
     "ember-cli": "~3.1.2",
@@ -45,8 +46,5 @@
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
-  },
-  "dependencies": {
-    "auth0-js": "^9.5.1"
   }
 }
