@@ -48,14 +48,6 @@ export default Service.extend({
   },
 
   /**
-   * Computed to tell if a user is logged in or not
-   * @return boolean
-   */
-  isAuthenticated: computed(function() {
-    return this.get('checkLogin');
-  }),
-
-  /**
    * Use the token to set our user
    */
   setUser(token) {
@@ -69,23 +61,10 @@ export default Service.extend({
   },
 
   /**
-   * Check if we are authenticated using the auth0 library's checkSession
-   */
-  checkLogin() {
-    // check to see if a user is authenticated, we'll get a token back
-    this.get('auth0')
-      .checkSession({}, (err, authResult) => {
-        // if we are wrong, stop everything now
-        if (err) return err;
-        this.setUser(authResult.accessToken);
-      });
-  },
-
-  /**
    * Get rid of everything in sessionStorage that identifies this user
    */
   logout() {
-    this.get('auth0').logout({
+    return this.get('auth0').logout({
       clientID: config.auth0.clientId,
       returnTo: 'http://localhost:4200'
     });

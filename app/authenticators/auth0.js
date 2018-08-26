@@ -1,7 +1,6 @@
 import Base from 'ember-simple-auth/authenticators/base';
 import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
 
 export default Base.extend({
   auth: service(),
@@ -10,8 +9,5 @@ export default Base.extend({
   },
   authenticate(options) {
     return this.get('auth').login();
-  },
-  invalidate(data) {
-    this.get('auth').logout();
   }
 });

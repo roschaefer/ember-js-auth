@@ -1,13 +1,7 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Route.extend({
-  session: service(),
-  beforeModel() {
-    // this is where we check if a user is authenticated
-    // if not authenticated, kick them to the home page
-    if (!this.get('session.isAuthenticated')) {
-      this.transitionTo('/');
-    }
-  }
+export default Route.extend(AuthenticatedRouteMixin, {
+  authenticationRoute: '/'
 });
