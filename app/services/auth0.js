@@ -9,7 +9,7 @@ export default Service.extend({
       clientID: config.auth0.clientId, // clientId from auth0
       redirectUri: config.auth0.callbacks.login,
       audience: `https://${config.auth0.domain}/userinfo`,
-      responseType: 'token',
+      responseType: 'token id_token',
       scope: 'openid profile' // adding profile because we want username, given_name, etc
     });
     this.set('webAuth', webAuth);

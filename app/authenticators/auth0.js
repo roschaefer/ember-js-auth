@@ -13,14 +13,7 @@ export default Base.extend({
     return new Promise((resolve, reject) => {
       this.get('auth0.webAuth').parseHash((err, authResult) => {
         if (err) reject(err);
-
-        let token = authResult && authResult.accessToken;
-        if (token) {
-          this.get('auth0.webAuth').client.userInfo(token, (err, profile) => {
-            this.get('session').set('data.profile', profile);
-          })
-        }
-        return resolve(token);
+        return resolve(authResult);
       });
     });
   },
