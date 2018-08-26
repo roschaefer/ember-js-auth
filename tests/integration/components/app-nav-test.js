@@ -12,15 +12,6 @@ module('Integration | Component | app-nav', function(hooks) {
 
     await render(hbs`{{app-nav}}`);
 
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      {{#app-nav}}
-        template block text
-      {{/app-nav}}
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.ok(this.element.textContent.match('Log In'));
   });
 });

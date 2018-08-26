@@ -18,6 +18,9 @@ env:
     # See https://git.io/vdao3 for details.
     - JOBS=1
 
+before_script:
+  - cp config/auth0-variables.example.js config/auth0-variables.js
+
 script:
   - yarn run lint:js
   - yarn test
