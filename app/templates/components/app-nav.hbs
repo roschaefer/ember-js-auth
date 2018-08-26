@@ -1,32 +1,38 @@
-<nav class="navbar is-danger">
+<nav class="navbar is-danger is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" {{ action "goHome" }}>
-      <p width="112" height="28">Bank Home</p>
-    </a>
   </div>
 
-  <div class="navbar-menu">
+  <div class="navbar-menu is-active">
     <div class="navbar-start">
-
+      {{#link-to 'index' class='navbar-item'}}
+      Bank Home
+      {{/link-to}}
     </div>
 
     <div class="navbar-end">
       {{#if session.isAuthenticated}}
-        <a class="navbar-item">{{ session.data.profile.name }}</a>
+        <div class="navbar-item">{{ session.data.profile.name }}</div>
 
-        <a class="navbar-item" {{ action "goDashboard" }}>
-          Dashboard
-        </a>
-
-        <button {{ action "logout" }} class="button is-primary">Log out</button>
-      {{ else }}
-
-      <p class="control">
-        <a class="button is-primary" href="#" {{action "login"}}>
-          Log In
-        </a>
-      </p>
+        {{#link-to 'dashboard' class='navbar-item'}}
+        Dashboard
+        {{/link-to}}
       {{/if}}
+
+      <div class="navbar-item">
+        <div class="field is-grouped">
+          <p class="control">
+          {{#if session.isAuthenticated}}
+          <button {{ action "logout" }} class="button is-primary">
+            Log out
+          </button>
+          {{ else }}
+          <button class="button is-primary" {{action "login"}}>
+            Log In
+          </button>
+          {{/if}}
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
