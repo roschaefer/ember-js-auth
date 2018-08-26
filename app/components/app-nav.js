@@ -4,13 +4,14 @@ import { inject as service } from '@ember/service';
 export default Component.extend({
   router: service(),
   session: service(),
+  auth0: service(),
   actions: {
 
     /**
    * From service/auth, starting the login process
    */
     login() {
-      this.get('session').authenticate('authenticator:auth0');
+      this.get('auth0.webAuth').authorize();
     },
 
     goHome() {
