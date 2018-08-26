@@ -14,7 +14,7 @@ export default Service.extend({
       // setting up the config file will be covered below
       domain: config.auth0.domain, // domain from auth0
       clientID: config.auth0.clientId, // clientId from auth0
-      redirectUri: config.auth0.callbackUrl,
+      redirectUri: config.auth0.callbacks.login,
       audience: `https://${config.auth0.domain}/userinfo`,
       responseType: 'token',
       scope: 'openid profile' // adding profile because we want username, given_name, etc
@@ -66,7 +66,7 @@ export default Service.extend({
   logout() {
     return this.get('auth0').logout({
       clientID: config.auth0.clientId,
-      returnTo: 'http://localhost:4200'
+      returnTo: config.auth0.callbacks.logout
     });
   }
 });

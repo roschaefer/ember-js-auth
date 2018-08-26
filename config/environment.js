@@ -46,9 +46,7 @@ module.exports = function (environment) {
   }
 
   ENV.auth0 = {
-    clientId: AUTH_CONFIG.clientId,
-    domain: AUTH_CONFIG.domain,
-    callbackUrl: AUTH_CONFIG.callbackUrl
+    ...AUTH_CONFIG
   }
 
   return ENV;

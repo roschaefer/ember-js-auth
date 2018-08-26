@@ -29,7 +29,10 @@ In the `config` folder, create an `auth0-variables.js` file. The content in that
 module.exports = {
   clientId: 'your client id',
   domain: 'your domain',
-  callbackUrl: 'your callback url'
+  callbacks: {
+    login: 'http://localhost:4200/callback',
+    logout: 'http://localhost:4200/'
+  }
 }
 ```
 
